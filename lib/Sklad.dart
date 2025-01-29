@@ -173,7 +173,7 @@ class _SkladPageState extends State<SkladPage> {
   ),
   style: ElevatedButton.styleFrom(
     backgroundColor: Colors.grey,
-    padding: EdgeInsets.symmetric(vertical: 15),
+    padding: EdgeInsets.symmetric(vertical: 17),
   ),
 ),
 
