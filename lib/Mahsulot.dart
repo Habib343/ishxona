@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:ishxona_uchun_ilova/bulim.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MahsulotPage extends StatefulWidget {
@@ -18,21 +19,10 @@ class _MahsulotPageState extends State<MahsulotPage> {
   @override
   void initState() {
     super.initState();
-    loadMahsulotlar();
+
   }
 
-  Future<void> loadMahsulotlar() async {
-    final prefs = await SharedPreferences.getInstance();
-    final savedData = prefs.getString('mahsulotlar');
-    if (savedData != null && savedData.isNotEmpty) {
-      final decodedData = jsonDecode(savedData);
-      if (decodedData is List) {
-        setState(() {
-          mahsulotlar = List<Map<String, String>>.from(decodedData);
-        });
-      }
-    }
-  }
+
 
   Future<void> saveMahsulotlar() async {
     final prefs = await SharedPreferences.getInstance();
@@ -57,7 +47,8 @@ class _MahsulotPageState extends State<MahsulotPage> {
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Iltimos, barcha maydonlarni to'g'ri to'ldiring!")),
+        const SnackBar(
+            content: Text("Iltimos, barcha maydonlarni to'g'ri to'ldiring!")),
       );
     }
   }
@@ -67,6 +58,16 @@ class _MahsulotPageState extends State<MahsulotPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Mahsulotlar"),
+        leading: IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Bulim(),
+                ),
+              );
+            },
+            icon: Icon(Icons.arrow_back_ios)),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -97,22 +98,24 @@ class _MahsulotPageState extends State<MahsulotPage> {
               children: [
                 ElevatedButton.icon(
                   onPressed: mahsulotQoshish,
-                  icon: const Icon(Icons.add),
-                  label: const Text("Qo'shish", style: TextStyle(color: Colors.black)),
+                  icon: const Icon(Icons.add,color: Colors.black,),
+                  label: const Text("Qo'shish",
+                      style: TextStyle(color: Colors.black)),
                   style: ElevatedButton.styleFrom(backgroundColor: Colors.grey),
                 ),
                 ElevatedButton.icon(
                   onPressed: () {
-                    // Navigate to the Mahsulotlar List page
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => MahsulotlarListPage(mahsulotlar: mahsulotlar),
+                        builder: (context) =>
+                            Mahsulotnomi(mahsulotlar: mahsulotlar),
                       ),
                     );
                   },
-                  icon: const Icon(Icons.list),
-                  label: const Text("Ro'yxatni ko'rsatish", style: TextStyle(color: Colors.black)),
+                  icon: const Icon(Icons.list,color: Colors.black,),
+                  label: const Text("Ro'yxatni ko'rsatish",
+                      style: TextStyle(color: Colors.black)),
                   style: ElevatedButton.styleFrom(backgroundColor: Colors.grey),
                 ),
               ],
@@ -124,16 +127,16 @@ class _MahsulotPageState extends State<MahsulotPage> {
   }
 }
 
-class MahsulotlarListPage extends StatefulWidget {
+class Mahsulotnomi extends StatefulWidget {
   final List<Map<String, String>> mahsulotlar;
 
-  const MahsulotlarListPage({super.key, required this.mahsulotlar});
+  const Mahsulotnomi({super.key, required this.mahsulotlar});
 
   @override
-  State<MahsulotlarListPage> createState() => _MahsulotlarListPageState();
+  State<Mahsulotnomi> createState() => _MahsulotnomiState();
 }
 
-class _MahsulotlarListPageState extends State<MahsulotlarListPage> {
+class _MahsulotnomiState extends State<Mahsulotnomi> {
   late List<Map<String, String>> mahsulotlar;
 
   @override
@@ -159,8 +162,10 @@ class _MahsulotlarListPageState extends State<MahsulotlarListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Mahsulotlar Ro'yxati"),
-      ),
+          title: const Text("Mahsulotlar Ro'yxati"),
+                  leading: IconButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => MahsulotPage(),),);}, icon: Icon(Icons.arrow_back_ios)),
+
+          ),
       body: mahsulotlar.isEmpty
           ? const Center(child: Text("Mahsulotlar ro'yxati bo'sh!"))
           : ListView.builder(
@@ -168,12 +173,17 @@ class _MahsulotlarListPageState extends State<MahsulotlarListPage> {
               itemBuilder: (context, index) {
                 final mahsulot = mahsulotlar[index];
                 return Card(
-                  margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15)),
                   child: ListTile(
                     contentPadding: const EdgeInsets.all(16.0),
-                    title: Text(mahsulot['nomi'] ?? 'Nomi yo\'q', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                    subtitle: Text("Narxi: ${mahsulot['narxi']} so'm", style: const TextStyle(fontSize: 16)),
+                    title: Text(mahsulot['nomi'] ?? 'Nomi yo\'q',
+                        style: const TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold)),
+                    subtitle: Text("Narxi: ${mahsulot['narxi']} so'm",
+                        style: const TextStyle(fontSize: 16)),
                     trailing: IconButton(
                       icon: const Icon(Icons.delete, color: Colors.red),
                       onPressed: () => deleteMahsulot(index),

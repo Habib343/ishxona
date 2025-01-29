@@ -1,498 +1,6 @@
-// import 'package:flutter/material.dart';
-// import 'package:intl/intl.dart'; 
-
-// class hodimlarPage extends StatefulWidget {
-//   const hodimlarPage({super.key});
-
-//   @override
-//   State<hodimlarPage> createState() => _hodimlarPageState();
-// }
-
-// class _hodimlarPageState extends State<hodimlarPage> {
-//   final _formKey = GlobalKey<FormState>();
-//   final TextEditingController _ishchiController = TextEditingController();
-//   final TextEditingController _mahsulotController = TextEditingController();
-//   final TextEditingController _soniController = TextEditingController();
-//   final TextEditingController _narxiController = TextEditingController();
-//   double _jamiNarx = 0.0;
-
-  
-//   final List<Map<String, dynamic>> _ishchilar = [];
-
-  
-//   final String _currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
-
-//   void _calculateTotalPrice() {
-//     final int soni = int.tryParse(_soniController.text) ?? 0;
-//     final double narxi = double.tryParse(_narxiController.text) ?? 0.0;
-//     setState(() {
-//       _jamiNarx = soni * narxi;
-//     });
-//   }
-
-//   void _saveData() {
-//     if (_formKey.currentState!.validate()) {
-//       setState(() {
-//         _ishchilar.add({
-//           'kun': _currentDate, 
-//           'ishchi': _ishchiController.text,
-//           'mahsulot': _mahsulotController.text,
-//           'soni': _soniController.text,
-//           'narxi': _narxiController.text,
-//           'jami': _jamiNarx,
-//         });
-//       });
-//       ScaffoldMessenger.of(context).showSnackBar(
-//         const SnackBar(content: Text('Ma\'lumot saqlandi!')),
-//       );
-//       _resetForm();
-//     }
-//   }
-
-//   void _resetForm() {
-//     _ishchiController.clear();
-//     _mahsulotController.clear();
-//     _soniController.clear();
-//     _narxiController.clear();
-//     setState(() {
-//       _jamiNarx = 0.0;
-//     });
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: const Text('Hodimlar ro‘yxati'),
-//       ),
-//       body: Padding(
-//         padding: const EdgeInsets.all(16.0),
-//         child: Column(
-//           children: [
-//             Form(
-//               key: _formKey,
-//               child: SingleChildScrollView(
-//                 child: Column(
-//                   children: [
-//                     Row(
-//                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                       children: [
-//                         const Text(
-//                           'Kun:',
-//                           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-//                         ),
-//                         Text(
-//                           _currentDate,
-//                           style: const TextStyle(fontSize: 16),
-//                         ),
-//                       ],
-//                     ),
-//                     const SizedBox(height: 10),
-//                     TextFormField(
-//                       controller: _ishchiController,
-//                       decoration: const InputDecoration(labelText: 'Hodim ismi'),
-//                       validator: (value) {
-//                         if (value == null || value.isEmpty) {
-//                           return 'Ishchi ismini kiriting';
-//                         }
-//                         return null;
-//                       },
-//                     ),
-//                     TextFormField(
-//                       controller: _mahsulotController,
-//                       decoration: const InputDecoration(labelText: 'Mahsulot nomi'),
-//                       validator: (value) {
-//                         if (value == null || value.isEmpty) {
-//                           return 'Mahsulot nomini kiriting';
-//                         }
-//                         return null;
-//                       },
-//                     ),
-//                     TextFormField(
-//                       controller: _soniController,
-//                       keyboardType: TextInputType.number,
-//                       decoration: const InputDecoration(labelText: 'Mahsulot soni'),
-//                       validator: (value) {
-//                         if (value == null || value.isEmpty) {
-//                           return 'Mahsulot sonini kiriting';
-//                         }
-//                         if (int.tryParse(value) == null) {
-//                           return 'Faqat son kiriting';
-//                         }
-//                         return null;
-//                       },
-//                       onChanged: (value) => _calculateTotalPrice(),
-//                     ),
-//                     TextFormField(
-//                       controller: _narxiController,
-//                       keyboardType: TextInputType.number,
-//                       decoration: const InputDecoration(labelText: 'Mahsulot narxi'),
-//                       validator: (value) {
-//                         if (value == null || value.isEmpty) {
-//                           return 'Mahsulot narxini kiriting';
-//                         }
-//                         if (double.tryParse(value) == null) {
-//                           return 'Faqat raqam kiriting';
-//                         }
-//                         return null;
-//                       },
-//                       onChanged: (value) => _calculateTotalPrice(),
-//                     ),
-//                     const SizedBox(height: 20),
-//                     Text(
-//                       'Jami narx: $_jamiNarx so‘m',
-//                       style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-//                     ),
-//                     const SizedBox(height: 20),
-//                     ElevatedButton(
-//                       onPressed: _saveData,
-//                       child: const Text('Saqlash'),
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//             ),
-//             const SizedBox(height: 20),
-//             Expanded(
-//               child: ListView.builder(
-//                 itemCount: _ishchilar.length,
-//                 itemBuilder: (context, index) {
-//                   final ishchi = _ishchilar[index];
-//                   return Card(
-//                     margin: const EdgeInsets.symmetric(vertical: 5),
-//                     child: ListTile(
-//                       title: Text('${ishchi['ishchi']} (${ishchi['kun']})'),
-//                       subtitle: Text(
-//                           'Mahsulot: ${ishchi['mahsulot']}, Soni: ${ishchi['soni']}, Narxi: ${ishchi['narxi']} so‘m'),
-//                       trailing: Text('Jami: ${ishchi['jami']} so‘m'),
-//                     ),
-//                   );
-//                 },
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-// import 'package:flutter/material.dart';
-// import 'package:intl/intl.dart';
-
-// class HodimlarPage extends StatefulWidget {
-//   const HodimlarPage({super.key});
-
-//   @override
-//   State<HodimlarPage> createState() => _HodimlarPageState();
-// }
-
-// class _HodimlarPageState extends State<HodimlarPage> {
-//   final _formKey = GlobalKey<FormState>();
-//   final TextEditingController _ishchiController = TextEditingController();
-//   final TextEditingController _mahsulotController = TextEditingController();
-//   final TextEditingController _soniController = TextEditingController();
-//   final TextEditingController _narxiController = TextEditingController();
-//   double _jamiNarx = 0.0;
-
-//   final List<Map<String, dynamic>> _ishchilar = [];
-//   final String _currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
-
-//   void _calculateTotalPrice() {
-//     final int soni = int.tryParse(_soniController.text) ?? 0;
-//     final double narxi = double.tryParse(_narxiController.text) ?? 0.0;
-//     setState(() {
-//       _jamiNarx = soni * narxi;
-//     });
-//   }
-
-//   void _saveData() {
-//     if (_formKey.currentState!.validate()) {
-//       setState(() {
-//         _ishchilar.add({
-//           'kun': _currentDate,
-//           'ishchi': _ishchiController.text,
-//           'mahsulot': _mahsulotController.text,
-//           'soni': _soniController.text,
-//           'narxi': _narxiController.text,
-//           'jami': _jamiNarx,
-//         });
-//       });
-//       ScaffoldMessenger.of(context).showSnackBar(
-//         const SnackBar(content: Text('Ma\'lumot saqlandi!')),
-//       );
-//       _resetForm();
-//     }
-//   }
-
-//   void _resetForm() {
-//     _ishchiController.clear();
-//     _mahsulotController.clear();
-//     _soniController.clear();
-//     _narxiController.clear();
-//     setState(() {
-//       _jamiNarx = 0.0;
-//     });
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: const Text('Hodimlar ro‘yxati'),
-//       ),
-//       body: Padding(
-//         padding: const EdgeInsets.all(16.0),
-//         child: Column(
-//           children: [
-//             Form(
-//               key: _formKey,
-//               child: Column(
-//                 children: [
-//                   Row(
-//                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                     children: [
-//                       const Text(
-//                         'Kun:',
-//                         style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-//                       ),
-//                       Text(
-//                         _currentDate,
-//                         style: const TextStyle(fontSize: 16),
-//                       ),
-//                     ],
-//                   ),
-//                   const SizedBox(height: 10),
-//                   TextFormField(
-//                     controller: _ishchiController,
-//                     decoration: const InputDecoration(labelText: 'Hodim ismi'),
-//                     validator: (value) {
-//                       if (value == null || value.isEmpty) {
-//                         return 'Ishchi ismini kiriting';
-//                       }
-//                       return null;
-//                     },
-//                   ),
-//                   TextFormField(
-//                     controller: _mahsulotController,
-//                     decoration: const InputDecoration(labelText: 'Mahsulot nomi'),
-//                     validator: (value) {
-//                       if (value == null || value.isEmpty) {
-//                         return 'Mahsulot nomini kiriting';
-//                       }
-//                       return null;
-//                     },
-//                   ),
-//                   TextFormField(
-//                     controller: _soniController,
-//                     keyboardType: TextInputType.number,
-//                     decoration: const InputDecoration(labelText: 'Mahsulot soni'),
-//                     validator: (value) {
-//                       if (value == null || value.isEmpty) {
-//                         return 'Mahsulot sonini kiriting';
-//                       }
-//                       if (int.tryParse(value) == null) {
-//                         return 'Faqat son kiriting';
-//                       }
-//                       return null;
-//                     },
-//                     onChanged: (value) => _calculateTotalPrice(),
-//                   ),
-//                   TextFormField(
-//                     controller: _narxiController,
-//                     keyboardType: TextInputType.number,
-//                     decoration: const InputDecoration(labelText: 'Mahsulot narxi'),
-//                     validator: (value) {
-//                       if (value == null || value.isEmpty) {
-//                         return 'Mahsulot narxini kiriting';
-//                       }
-//                       if (double.tryParse(value) == null) {
-//                         return 'Faqat raqam kiriting';
-//                       }
-//                       return null;
-//                     },
-//                     onChanged: (value) => _calculateTotalPrice(),
-//                   ),
-//                   const SizedBox(height: 20),
-//                   Text(
-//                     'Jami narx: $_jamiNarx so‘m',
-//                     style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-//                   ),
-//                   const SizedBox(height: 20),
-//                   ElevatedButton(
-//                     onPressed: _saveData,
-//                     child: const Text('Saqlash'),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//             const SizedBox(height: 20),
-//             if (_ishchilar.isNotEmpty) ...[
-//               Expanded(
-//                 child: ListView.builder(
-//                   itemCount: _ishchilar.length,
-//                   itemBuilder: (context, index) {
-//                     final ishchi = _ishchilar[index];
-//                     return Card(
-//                       margin: const EdgeInsets.symmetric(vertical: 5),
-//                       child: ListTile(
-//                         title: Text('${ishchi['ishchi']} (${ishchi['kun']})'),
-//                         subtitle: Text(
-//                             'Mahsulot: ${ishchi['mahsulot']}, Soni: ${ishchi['soni']}, Narxi: ${ishchi['narxi']} so‘m'),
-//                         trailing: Text('Jami: ${ishchi['jami']} so‘m'),
-//                       ),
-//                     );
-//                   },
-//                 ),
-//               ),
-//             ],
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-
-
-
-// import 'package:flutter/material.dart';
-// import 'package:intl/intl.dart';
-
-// class HodimlarPage extends StatefulWidget {
-//   const HodimlarPage({super.key});
-
-//   @override
-//   State<HodimlarPage> createState() => _HodimlarPageState();
-// }
-
-// class _HodimlarPageState extends State<HodimlarPage> {
-//   final _formKey = GlobalKey<FormState>();
-//   final TextEditingController _ishchiController = TextEditingController();
-
-//   final List<Map<String, dynamic>> _hodimlar = [];
-//   final String _currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
-
-//   void _addEntry() {
-//     if (_formKey.currentState!.validate()) {
-//       setState(() {
-//         _hodimlar.add({
-//           'kun': _currentDate,
-//           'hodim': _ishchiController.text,
-//         });
-//       });
-//       ScaffoldMessenger.of(context).showSnackBar(
-//         const SnackBar(content: Text('Ma\'lumot saqlandi!')),
-//       );
-//       _resetForm();
-//     }
-//   }
-
-//   void _resetForm() {
-//     _ishchiController.clear();
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: const Text('Hodimlar ro‘yxati'),
-//       ),
-//       body: Padding(
-//         padding: const EdgeInsets.all(16.0),
-//         child: Column(
-//           children: [
-//             Form(
-//               key: _formKey,
-//               child: Column(
-//                 crossAxisAlignment: CrossAxisAlignment.start,
-//                 children: [
-//                   Text(
-//                     'Kun: $_currentDate',
-//                     style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-//                   ),
-//                   const SizedBox(height: 10),
-//                   TextFormField(
-//                     controller: _ishchiController,
-//                     decoration: const InputDecoration(labelText: 'Hodim ismi'),
-//                     validator: (value) {
-//                       if (value == null || value.isEmpty) {
-//                         return 'Hodim ismini kiriting';
-//                       }
-//                       return null;
-//                     },
-//                   ),
-//                   const SizedBox(height: 20),
-//                   ElevatedButton(
-//                     onPressed: _addEntry,
-//                     child: const Text('Saqlash'),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//             const SizedBox(height: 20),
-//             Expanded(
-//               child: ListView.builder(
-//                 itemCount: _hodimlar.length,
-//                 itemBuilder: (context, index) {
-//                   final hodim = _hodimlar[index];
-//                   return Card(
-//                     margin: const EdgeInsets.symmetric(vertical: 5),
-//                     child: ListTile(
-//                       title: Text(hodim['hodim']),
-//                       subtitle: Text('Kun: ${hodim['kun']}'),
-//                     ),
-//                   );
-//                 },
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-
-
-// class HodimDetailPage extends StatelessWidget {
-//   final Map<String, dynamic> hodim;
-
-//   const HodimDetailPage({super.key, required this.hodim});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('Hodim: ${hodim['hodim']}'),
-//       ),
-//       body: Padding(
-//         padding: const EdgeInsets.all(16.0),
-//         child: Column(
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           children: [
-//             Text(
-//               'Kun: ${hodim['kun']}',
-//               style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-//             ),
-//             const SizedBox(height: 10),
-//             Text('Mahsulot: ${hodim['mahsulot']}'),
-//             Text('Soni: ${hodim['son']}'),
-//             Text('Narxi: ${hodim['narx']} so‘m'),
-//             Text(
-//               'Umumiy hisob: ${hodim['hisob']} so‘m',
-//               style: const TextStyle(fontWeight: FontWeight.bold),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }\\
-
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:ishxona_uchun_ilova/bulim.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
@@ -560,6 +68,8 @@ class _HodimlarPageState extends State<HodimlarPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Hodimlar ro‘yxati'),
+                leading: IconButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => Bulim(),),);}, icon: Icon(Icons.arrow_back_ios)),
+
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -658,56 +168,75 @@ class _HodimDetailPageState extends State<HodimDetailPage> {
     return total;
   }
 
-  void _showBottomSheet(BuildContext context, int day) {
-    final productController = TextEditingController(
-        text: _data[day]?['product'] ?? ''); // Saqlangan mahsulot nomi
-    final quantityController = TextEditingController(
-        text: _data[day]?['quantity'] ?? ''); // Saqlangan son
-    final priceController = TextEditingController(
-        text: _data[day]?['price'] ?? ''); // Saqlangan narx
+ void _showBottomSheet(BuildContext context, int day) {
+  final productController = TextEditingController(
+      text: _data[day]?['product'] ?? ''); // Saved product name
+  final quantityController = TextEditingController(
+      text: _data[day]?['quantity'] ?? ''); // Saved quantity
+  final priceController = TextEditingController(
+      text: _data[day]?['price'] ?? ''); // Saved price
 
-    showModalBottomSheet(
-      context: context,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (context) {
-        return Padding(
-          padding: const EdgeInsets.all(16.0),
+  showModalBottomSheet(
+    context: context,
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+    ),
+    isScrollControlled: true,
+    builder: (context) {
+      return SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.only(
+            left: 16.0,
+            right: 16.0,
+            top: 16.0,
+            bottom: MediaQuery.of(context).viewInsets.bottom + 16.0,
+          ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Kun $day: Maʼlumotni kiriting',
-                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 10),
-              TextField(
-                controller: productController,
-                decoration: const InputDecoration(
-                  labelText: 'Mahsulot nomi',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              const SizedBox(height: 10),
-              TextField(
-                controller: quantityController,
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
-                  labelText: 'Mahsulot soni',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              const SizedBox(height: 10),
-              TextField(
-                controller: priceController,
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
-                  labelText: 'Mahsulot narxi',
-                  border: OutlineInputBorder(),
+              Center(
+                child: Text(
+                  'Kun $day: Maʼlumotni kiriting',
+                  style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
               ),
               const SizedBox(height: 20),
+              TextField(
+                controller: productController,
+                decoration: InputDecoration(
+                  labelText: 'Mahsulot nomi',
+                  labelStyle: const TextStyle(fontSize: 16),
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                  filled: true,
+                  fillColor: Colors.grey[200],
+                ),
+              ),
+              const SizedBox(height: 15),
+              TextField(
+                controller: quantityController,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  labelText: 'Mahsulot soni',
+                  labelStyle: const TextStyle(fontSize: 16),
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                  filled: true,
+                  fillColor: Colors.grey[200],
+                ),
+              ),
+              const SizedBox(height: 15),
+              TextField(
+                controller: priceController,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  labelText: 'Mahsulot narxi',
+                  labelStyle: const TextStyle(fontSize: 16),
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                  filled: true,
+                  fillColor: Colors.grey[200],
+                ),
+              ),
+              const SizedBox(height: 25),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -715,8 +244,17 @@ class _HodimDetailPageState extends State<HodimDetailPage> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                    child: const Text('Bekor qilish'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.red,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                    ),
+                    child: const Text(
+                      'Bekor qilish',
+                      style: TextStyle(fontSize: 16),
+                    ),
                   ),
                   ElevatedButton(
                     onPressed: () {
@@ -733,17 +271,28 @@ class _HodimDetailPageState extends State<HodimDetailPage> {
                       );
                       Navigator.pop(context);
                     },
-                    style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-                    child: const Text('Saqlash'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.green,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                    ),
+                    child: const Text(
+                      'Saqlash',
+                      style: TextStyle(fontSize: 16),
+                    ),
                   ),
                 ],
               ),
             ],
           ),
-        );
-      },
-    );
-  }
+        ),
+      );
+    },
+  );
+}
+
 
   @override
   Widget build(BuildContext context) {

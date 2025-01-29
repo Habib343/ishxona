@@ -21,6 +21,7 @@ class _BulimState extends State<Bulim> {
       appBar: AppBar(
         title: const Text("Ishxona Bo'limlari"),
         backgroundColor: Colors.grey[100],
+        automaticallyImplyLeading: false, 
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -88,7 +89,7 @@ class _BulimState extends State<Bulim> {
     );
   }
 
- 
+
   Widget sahifa(int index) {
     switch (index) {
       case 0:
@@ -113,7 +114,7 @@ class _BulimState extends State<Bulim> {
     }
   }
 
- 
+
   IconData _getIconForSection(int index) {
     switch (index) {
       case 0:
@@ -131,7 +132,7 @@ class _BulimState extends State<Bulim> {
     }
   }
 
- 
+
   String _getSectionName(int index) {
     switch (index) {
       case 0:

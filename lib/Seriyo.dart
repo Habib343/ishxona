@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ishxona_uchun_ilova/bulim.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
@@ -59,13 +60,13 @@ class _XomAshyoPageState extends State<XomAshyoPage> {
       _narxController.clear();
       _saveMahsulotlar();
 
-      // Navigate to MahsulotlarListPage after adding the product
+      
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => MahsulotlarListPage(mahsulotlar: _mahsulotList)),
       );
     } else {
-      _showAlert("Invalid Data", "Please make sure all fields are filled with valid values.");
+      _showAlert("Ma'lumot noto‘g‘ri", "Iltimos, barcha maydonlarni to‘g‘ri qiymatlar bilan to‘ldirganingizni tekshiring.");
     }
   }
 
@@ -109,13 +110,14 @@ class _XomAshyoPageState extends State<XomAshyoPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Xomashyo Qo\'shish'),
+        leading: IconButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => Bulim(),),);}, icon: Icon(Icons.arrow_back_ios)),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Mahsulot, Kilogrammi, Narxi
+            
             TextField(
               controller: _mahsulotController,
               decoration: InputDecoration(
@@ -167,7 +169,9 @@ class _XomAshyoPageState extends State<XomAshyoPage> {
                   borderRadius: BorderRadius.circular(8),
                 ),
               ),
-              child: const Text('Mahsulot qo\'shish'),
+              child: const Text('Mahsulot qo\'shish',style: TextStyle(
+                color: Colors.black,
+              ),),
             ),
           ],
         ),
@@ -193,8 +197,9 @@ class MahsulotlarListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => XomAshyoPage(),),);}, icon: Icon(Icons.arrow_back_ios)),
         title: const Text('Mahsulotlar Ro\'yxati'),
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.white,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
